@@ -5,4 +5,4 @@ asyncpg
 pydantic
 python-dotenv
 alembic
-psycopg2-binary
+psycopg2

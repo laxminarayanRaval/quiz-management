@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 from models import QuestionType
 
@@ -38,11 +38,53 @@ class QuizCreate(QuizBase):
     questions: List[QuestionCreate] = []
 
 class QuizResponse(QuizBase):
-    id: int
+    public_id: str = Field(serialization_alias="id")
     questions: List[QuestionResponse]
 
     class Config:
         from_attributes = True
+
+class PublicAnswerResponse(BaseModel):
+    id: int
+    content: str
+    
+    class Config:
+        from_attributes = True
+
+class PublicQuestionResponse(QuestionBase):
+    id: int
+    answers: List[PublicAnswerResponse]
+
+    class Config:
+        from_attributes = True
+
+class PublicQuizResponse(QuizBase):
+    public_id: str = Field(serialization_alias="id")
+    questions: List[PublicQuestionResponse]
+
+    class Config:
+        from_attributes = True
+
+class AnswerSubmission(BaseModel):
+    question_id: int
+    selected_answer_ids: List[int] = [] # For multiple choice
+    text_answer: Optional[str] = None # For fill in blank (not implemented in valid yet but good to have)
+
+class QuizSubmission(BaseModel):
+    answers: List[AnswerSubmission]
+
+class QuestionResult(BaseModel):
+    question_id: int
+    is_correct: bool
+    user_answer: Optional[str] = None # For display (text or joined options)
+    correct_answer: Optional[str] = None # For feedback
+
+class SubmissionResult(BaseModel):
+    score: int
+    total_points: int
+    correct_count: int
+    total_questions: int
+    details: List[QuestionResult] = []
 
 class ResponseModel(BaseModel):
     success: bool

@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from db import Base
+import uuid
 import enum
 
 class QuestionType(str, enum.Enum):
@@ -13,6 +14,7 @@ class Quiz(Base):
     __tablename__ = "quizzes"
 
     id = Column(Integer, primary_key=True, index=True)
+    public_id = Column(String, default=lambda: str(uuid.uuid4()), unique=True, index=True)
     title = Column(String, index=True)
     description = Column(String, nullable=True)
     
