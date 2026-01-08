@@ -35,14 +35,19 @@ const QuestionItem = ({ question, index, onUpdate, onDelete }: QuestionItemProps
     ];
 
     return (
-        <Card className="relative">
+        <Card className="relative bg-white text-gray-900 shadow-md">
             <div className="absolute top-4 right-4">
-                <Button variant="danger" onClick={onDelete} className="p-2" aria-label="Delete Question">
+                <Button
+                    variant="danger"
+                    onClick={onDelete}
+                    className="p-2 hover:bg-red-600 transition-colors"
+                    aria-label="Delete Question"
+                >
                     <Trash2 size={16} />
                 </Button>
             </div>
 
-            <h3 className="text-lg font-semibold mb-4">Question {index + 1}</h3>
+            <h3 className="text-lg font-bold mb-4 text-midnight-light">Question {index + 1}</h3>
 
             <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -52,6 +57,7 @@ const QuestionItem = ({ question, index, onUpdate, onDelete }: QuestionItemProps
                             placeholder="e.g. What is the capital of France?"
                             value={question.content}
                             onChange={(e) => handleValueChange('content', e.target.value)}
+                            className="border-gray-300 focus:border-soft-blue focus:ring-soft-blue"
                         />
                     </div>
                     <div>
@@ -61,6 +67,7 @@ const QuestionItem = ({ question, index, onUpdate, onDelete }: QuestionItemProps
                             min="1"
                             value={question.points}
                             onChange={(e) => handleValueChange('points', parseInt(e.target.value) || 1)}
+                            className="border-gray-300 focus:border-soft-blue focus:ring-soft-blue"
                         />
                     </div>
                 </div>
@@ -70,6 +77,7 @@ const QuestionItem = ({ question, index, onUpdate, onDelete }: QuestionItemProps
                     options={questionTypes}
                     value={question.question_type}
                     onChange={(e) => handleValueChange('question_type', e.target.value)}
+                    className="border-gray-300 focus:border-soft-blue focus:ring-soft-blue"
                 />
 
                 <div>

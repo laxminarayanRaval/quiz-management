@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+    --color-midnight: #0f172a;
+    --color-midnight-light: #1e293b;
+    --color-soft-blue: #38bdf8;
+    --color-teal-soft: #2dd4bf;
+}
+
+body {
+    background-color: var(--color-midnight);
+    color: white;
+}
